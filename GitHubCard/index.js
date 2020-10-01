@@ -4,6 +4,17 @@
     https://api.github.com/users/<your name>
 */
 
+axios.get('https://api.github.com/users/davarg5')
+  .then( res => {
+    res.data.forEach( item => {
+      let card = cardCreator(item);
+      parent.appendChild(card);
+    })
+  })
+  .catch( err => {
+  console.log("Error:", err);
+  })
+
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -49,6 +60,61 @@ const followersArray = [];
       </div>
     </div>
 */
+
+cards = document.querySelector('.cards');
+
+function createCard(obj)
+{
+  const card = document.createElement('div');
+  card.classList.add('card');
+  cards.appendChild(card);
+
+  const img = document.createElement('img');
+  img.setAttribute('src', obj.avatar_url);
+  card.appendChild(img);
+
+  const card_info = document.createElement('div');
+  card_info.classList.add('card-info');
+  card.appendChild(card_info);
+
+  const name = document.createElement('h3');
+  name.classList.add('name');
+  name.textContent = obj.name;
+  card_info.appendChild(name);
+
+  const username = document.createElement('p');
+  username.textContent = obj.login;
+  username.classList.add('username');
+  card_info.appendChild(username);
+
+  const location = document.createElement('p');
+  location.textContent = 'Location: '+obj.location;
+  location.classList.add('location');
+  card_info.appendChild(location);
+
+  const profile = document.createElement('p');
+  profile.textContent = 'Profile:';
+  card_info.appendChild(profile);
+
+  const address = document.createElement('a');
+  address.textContent = obj.url;
+  address.setAttribute('href', obj.url);
+  profile.appendChild(address);
+
+  const followers = document.createElement('p');
+  followers.textContent = 'Followers: '+obj.followers;
+  card_info.appendChild(followers);
+
+  const following = document.createElement('p');
+  following.textContent = 'Following: '+obj.following;
+  card_info.appendChild(following);
+
+  const bio = document.createElement('p');
+  bio.textContent = 'Bio: '+obj.bio;
+  card_info.appendChild(bio);
+
+}
+
 
 /*
   List of LS Instructors Github username's:
