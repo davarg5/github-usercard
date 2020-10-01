@@ -6,10 +6,9 @@
 
 axios.get('https://api.github.com/users/davarg5')
   .then( res => {
-    res.data.forEach( item => {
-      let card = cardCreator(item);
-      parent.appendChild(card);
-    })
+    res.data.name = 'Daniel Vargas';
+    const usercard = createCard(res.data);
+    cards.appendChild(usercard);
   })
   .catch( err => {
   console.log("Error:", err);
@@ -40,6 +39,22 @@ axios.get('https://api.github.com/users/davarg5')
 */
 
 const followersArray = [];
+followersArray.push("tetondan");
+followersArray.push("dustinmyers");
+followersArray.push("justsml");
+followersArray.push("luishrd");
+followersArray.push("bigknell");
+for(let i=0; i<followersArray.length; i++)
+{
+  axios.get('https://api.github.com/users/'+followersArray[i])
+    .then( res => {
+      const usercard = createCard(res.data);
+      cards.appendChild(usercard);
+    })
+    .catch( err => {
+    console.log("Error:", err);
+    })
+}
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
